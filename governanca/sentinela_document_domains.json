@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "authority": "governanca/SENTINELA_FADA.md",
+  "precedence": [
+    "current_explicit_author_instruction",
+    "governanca/SENTINELA_FADA.md",
+    "governanca/PROTOCOLO_EPISTEMOLOGICO_SENTINELA.md",
+    "governanca/PROJECT_CONTEXT.md",
+    "docs/SPECIFICATION.md",
+    "governanca/VALIDATION_GATES.md",
+    "governanca/evidencias"
+  ],
+  "domains": [
+    {
+      "id": "sentinel_architecture",
+      "primary": "governanca/SENTINELA_FADA.md",
+      "secondary": ["governanca/PROTOCOLO_EPISTEMOLOGICO_SENTINELA.md"]
+    },
+    {
+      "id": "project_state",
+      "primary": "governanca/PROJECT_CONTEXT.md",
+      "secondary": ["governanca/sentinela_child_context.json"]
+    },
+    {
+      "id": "scheduler_specification",
+      "primary": "docs/SPECIFICATION.md",
+      "secondary": ["src/fada", "governanca/VALIDATION_GATES.md"]
+    },
+    {
+      "id": "memory",
+      "primary": "governanca/SENTINELA_MEMORIA.md",
+      "secondary": ["governanca/evidencias/sentinela_memory"]
+    },
+    {
+      "id": "raw_evidence",
+      "primary": "governanca/evidencias",
+      "secondary": ["governanca/incidents", "governanca/reviews"]
+    }
+  ]
+}
+

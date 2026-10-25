@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fada.local/schemas/v1/resource_replay_trace.json",
+  "title": "FADA resource replay trace v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "trace_id", "seed", "scenario_id", "config", "samples"],
+  "properties": {
+    "schema_version": {"const": "fada-resource-replay-trace/v1"},
+    "trace_id": {"type": "string", "minLength": 1},
+    "seed": {"type": "integer", "minimum": 0},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "config": {"$ref": "machine_resource_config.json"},
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "resource_telemetry.json"}
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#334155"/></marker>
+    <style>
+      .box{fill:#eff6ff;stroke:#2563eb;stroke-width:3;rx:18}
+      .decision{fill:#fff7ed;stroke:#ea580c;stroke-width:3}
+      .data{fill:#f0fdf4;stroke:#16a34a;stroke-width:3;rx:18}
+      .end{fill:#f1f5f9;stroke:#475569;stroke-width:3;rx:18}
+      .text{font-family:Arial,sans-serif;font-size:24px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:Arial,sans-serif;font-size:20px;fill:#0f172a;text-anchor:middle}
+      .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .label{font-family:Arial,sans-serif;font-size:20px;fill:#334155}
+    </style>
+  </defs>
+  <rect width="1200" height="1500" fill="#ffffff"/>
+  <text x="600" y="48" class="text" font-size="32" font-weight="bold">Escalonamento dinâmico MVHSN</text>
+  <text x="600" y="82" class="small">Heurística adaptativa por worker, cenário e custo aprendido</text>
+
+  <rect x="300" y="115" width="600" height="90" class="end"/>
+  <text x="600" y="153" class="text">Início / evento de decisão</text>
+  <text x="600" y="183" class="small">worker liberado ou nova informação da fila</text>
+
+  <path d="M600 205 V250" class="arrow"/>
+  <rect x="240" y="250" width="720" height="120" class="data"/>
+  <text x="600" y="292" class="text">Atualizar estado</text>
+  <text x="600" y="326" class="small">fila Q · workers · leases · tarefas ativas · Lₛ</text>
+  <text x="600" y="354" class="small">tempos observados e identidade do runtime</text>
+
+  <path d="M600 370 V415" class="arrow"/>
+  <rect x="210" y="415" width="780" height="125" class="data"/>
+  <text x="600" y="457" class="text">Aprender / atualizar custos</text>
+  <text x="600" y="491" class="small">Ĉ(k) por cenário + mᵢ por complexidade</text>
+  <text x="600" y="519" class="small">velocidade histórica vₛ por worker</text>
+
+  <path d="M600 540 V585" class="arrow"/>
+  <rect x="205" y="585" width="790" height="120" class="box"/>
+  <text x="600" y="627" class="text">Selecionar janela de candidatos</text>
+  <text x="600" y="662" class="small">priorizar tarefas pesadas e cenários sub-representados</text>
+  <text x="600" y="690" class="small">evitar avaliar toda a fila a cada evento</text>
+
+  <path d="M600 705 V750" class="arrow"/>
+  <rect x="170" y="750" width="860" height="120" class="box"/>
+  <text x="600" y="792" class="text">Simular cada atribuição i → s</text>
+  <text x="600" y="827" class="small">p̂ᵢₛ = Ĉ(kᵢ) · mᵢ / vₛ</text>
+  <text x="600" y="855" class="small">redistribuição gulosa das tarefas restantes</text>
+
+  <path d="M600 870 V915" class="arrow"/>
+  <rect x="255" y="915" width="690" height="105" class="box"/>
+  <text x="600" y="957" class="text">Calcular término previsto</text>
+  <text x="600" y="991" class="small">T̂(i→s) = maxᵣ L′ᵣ</text>
+
+  <path d="M600 1020 V1065" class="arrow"/>
+  <polygon points="600,1065 815,1180 600,1295 385,1180" class="decision"/>
+  <text x="600" y="1167" class="text">Atribuir reduz o</text>
+  <text x="600" y="1199" class="text">término além de ε?</text>
+
+  <path d="M385 1180 H170 V1340" class="arrow"/>
+  <text x="265" y="1162" class="label">Não</text>
+  <rect x="45" y="1340" width="250" height="80" class="end"/>
+  <text x="170" y="1373" class="small">Aguardar próximo</text>
+  <text x="170" y="1402" class="small">evento de conclusão</text>
+
+  <path d="M815 1180 H1030 V1340" class="arrow"/>
+  <text x="915" y="1162" class="label">Sim</text>
+  <rect x="905" y="1340" width="250" height="80" class="end"/>
+  <text x="1030" y="1373" class="small">Despachar i para s</text>
+  <text x="1030" y="1402" class="small">e registrar observação</text>
+
+  <path d="M170 1420 V1460 H600 V1480" class="arrow"/>
+  <path d="M1030 1420 V1460 H600 V1480" class="arrow"/>
+  <rect x="400" y="1480" width="400" height="1" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fada.local/schemas/v1/cpu_homologation_result.json",
+  "title": "FADA CPU homologation result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "generated_at", "scope", "kernel_version", "protocol",
+    "protocol_sha256", "source_sha256", "parameters", "capability", "runs",
+    "median_throughput_operations_per_second",
+    "best_parallel_speedup_over_single_worker",
+    "temperature_telemetry_available", "criteria", "passed", "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "fada-cpu-homologation-result/v1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "scope": {"const": "cpu-offline-observational"},
+    "kernel_version": {"const": "fada-cpu-kernel/1"},
+    "protocol": {"type": "string", "minLength": 1},
+    "protocol_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_sha256": {"type": "object", "minProperties": 3},
+    "parameters": {"type": "object"},
+    "capability": {
+      "type": "object",
+      "required": ["resource_kind", "architecture", "logical_cpus", "affinity_cpus"],
+      "properties": {"resource_kind": {"const": "cpu"}}
+    },
+    "runs": {"type": "array", "minItems": 6},
+    "median_throughput_operations_per_second": {"type": "object"},
+    "best_parallel_speedup_over_single_worker": {"type": "number", "minimum": 0},
+    "temperature_telemetry_available": {"type": "boolean"},
+    "criteria": {"type": "object", "minProperties": 8},
+    "passed": {"type": "boolean"},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+  }
+}

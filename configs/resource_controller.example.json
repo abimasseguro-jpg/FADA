@@ -1,0 +1,35 @@
+{
+  "schema_version": "fada-resource-config/v1",
+  "machine_id": "example-node-not-for-production",
+  "mode": "disabled",
+  "authorized_levels": [
+    {
+      "level_id": "2-workers-high-clock",
+      "workers": 2,
+      "core_clock_hz": 4000000000
+    },
+    {
+      "level_id": "4-workers-lower-clock",
+      "workers": 4,
+      "core_clock_hz": 3000000000
+    },
+    {
+      "level_id": "4-workers-high-clock",
+      "workers": 4,
+      "core_clock_hz": 4000000000
+    }
+  ],
+  "minimum_samples_per_level": 5,
+  "observation_window_seconds": 900,
+  "telemetry_max_age_seconds": 60,
+  "cooldown_seconds": 300,
+  "minimum_throughput_gain_ratio": 0.05,
+  "memory_reserve_bytes": 1073741824,
+  "maximum_swap_used_bytes": 0,
+  "maximum_error_rate": 0.01,
+  "thermal_warning_celsius": 80,
+  "thermal_critical_celsius": 90,
+  "thermal_hysteresis_celsius": 4,
+  "maximum_temperature_rise_celsius_per_second": 0.1,
+  "throughput_uncertainty_multiplier": 2.0
+}

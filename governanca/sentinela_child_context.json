@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "project": "FADA",
+  "role": "sentinela_filha",
+  "parent": {
+    "project": "MVHSN",
+    "role": "sentinela_mae",
+    "transport": "append_only_local_mother_intake"
+  },
+  "authority": "governanca/SENTINELA_FADA.md",
+  "maturity": "experimental",
+  "production_mutation_allowed": false,
+  "canonical_policy": "fada-hs/0.1"
+}
+

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "project_id": "fada",
+  "role": "scientific_scheduler_project",
+  "mai_mode": "explicit_read_only_consultation",
+  "sentinela_mode": "project_specific_observer",
+  "validation_commands": []
+}

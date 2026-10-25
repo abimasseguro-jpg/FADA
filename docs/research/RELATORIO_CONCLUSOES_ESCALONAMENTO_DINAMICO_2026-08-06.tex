@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=2.5cm}
+\title{Relatório de conclusões --- escalonamento dinâmico de tarefas}
+\author{MVHSN}
+\date{06 de agosto de 2026}
+\begin{document}
+\maketitle
+
+\section{Resultado do estudo}
+A equação original é matematicamente consistente como modelo de minimização do \emph{makespan}. Ela é superior a uma ETA baseada apenas em médias porque considera tarefas pendentes, tarefas em execução, velocidades diferentes e a possibilidade de aguardar.
+
+\section{Limitação identificada}
+A solução exata exigiria reotimizar uma alocação heterogênea de centenas de tarefas a cada liberação. Isso é caro e pouco necessário para a operação. Além disso, os custos das tarefas não são determinísticos.
+
+\section{Fórmula recomendada}
+Cada worker é tratado como um slot independente. Para a tarefa $i$ no worker $s$, o tempo previsto é:
+\[
+\widehat{p}_{i,s}=\frac{\widehat{C}(k_i)\,m_i}{v_s}.
+\]
+Aqui, $\widehat{C}(k_i)$ é o custo aprendido do cenário, $m_i$ representa a complexidade observada da tarefa e $v_s$ é a velocidade histórica do worker.
+
+Quando um worker fica livre, o coordenador avalia uma janela de candidatos. Para cada candidato, simula uma distribuição gulosa das tarefas restantes e calcula:
+\[
+\widehat{T}_{i\rightarrow s}=\max_r L'_r.
+\]
+A tarefa escolhida é a que minimiza $\widehat{T}_{i\rightarrow s}$. A máquina só permanece ociosa quando esperar produz ganho maior que a margem de erro da previsão.
+
+\section{Melhorias incorporadas}
+O modelo recomendado:
+\begin{itemize}
+\item diferencia $n=50$, $n=100$, $n=200$ e $n=400$;
+\item aprende com os tempos reais;
+\item trata workers individualmente;
+\item considera iterações ECM e fallbacks;
+\item limita a busca a candidatos relevantes;
+\item usa margem de segurança;
+\item mantém fallback para a política atual quando há poucos dados.
+\end{itemize}
+
+\section{Exclusão deliberada}
+Temperatura, clock e carga térmica não fazem parte desta versão, conforme decisão do projeto. A velocidade será aprendida exclusivamente do histórico de execução e da capacidade observada dos workers.
+
+\section{Validação necessária}
+Ainda não é possível afirmar um percentual de ganho sem backtest. A comparação deve medir makespan, erro da ETA, tempo ocioso, vazão por cenário, equilíbrio entre $n=50$ e $n=400$, reexecuções e leases expirados.
+
+\section{Parecer final}
+A proposta deve ser aprovada como base de evolução, mas implementada como heurística adaptativa por worker, cenário e custo aprendido, com horizonte móvel, margem de segurança e fallback. Essa versão preserva a robustez da fila e permite medir o ganho antes de alterar o coordenador em produção.
+\end{document}

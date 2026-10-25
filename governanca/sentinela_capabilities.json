@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "authority": "governanca/SENTINELA_FADA.md",
+  "portability": {
+    "project_specific_rules": "child_adapters_only",
+    "absolute_paths_allowed": false,
+    "fixed_ai_provider_required": false,
+    "minimum_layout": "project_root/governanca"
+  },
+  "capabilities": [
+    {
+      "id": "fada_invariant_audit",
+      "owner": "sentinela_fada",
+      "mode": "deterministic",
+      "status": "implemented",
+      "effect": "validate",
+      "authorization": "automatic_read_only"
+    },
+    {
+      "id": "policy_test_execution",
+      "owner": "sentinela_fada",
+      "mode": "deterministic",
+      "status": "implemented",
+      "effect": "validate",
+      "authorization": "automatic_read_only"
+    },
+    {
+      "id": "epistemic_incident_recording",
+      "owner": "sentinela_fada",
+      "mode": "deterministic",
+      "status": "implemented",
+      "effect": "append_evidence",
+      "authorization": "automatic"
+    },
+    {
+      "id": "mother_intake",
+      "owner": "sentinela_mother",
+      "mode": "deterministic",
+      "status": "implemented",
+      "effect": "append_evidence",
+      "authorization": "automatic"
+    },
+    {
+      "id": "structured_memory",
+      "owner": "sentinela_memory",
+      "mode": "deterministic",
+      "status": "implemented",
+      "effect": "record_and_classify",
+      "authorization": "automatic_for_proposals"
+    },
+    {
+      "id": "shadow_policy_assessment",
+      "owner": "sentinela_fada",
+      "mode": "hybrid",
+      "status": "partial",
+      "effect": "observe_and_recommend",
+      "authorization": "automatic_read_only"
+    },
+    {
+      "id": "production_policy_mutation",
+      "owner": "project_operator",
+      "mode": "human_assisted",
+      "status": "policy_only",
+      "effect": "explicit_authorization_required",
+      "authorization": "explicit_project_host_approval"
+    }
+  ]
+}
+

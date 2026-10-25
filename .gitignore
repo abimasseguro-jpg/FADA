@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Runtime local da governança (estado e evidências não versionados)
+/governanca/evidencias/.sentinela.pid
+/governanca/evidencias/sentinela_watch.log
+/governanca/evidencias/sentinela_watch.out
+
+# Local executions and project-specific governance state
+/experiments/results/
+/governanca/evidencias/
+/governanca/xander/evidence/
+/governanca/xander/memory/
+/governanca/xander/retrieval/
+/.staging_mvhns/
+/error.log
+*.rds
+*.log
+.env
+.env.*

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "default_context": "editing",
+  "default_profile": "fada_local",
+  "contexts": ["editing", "audit", "simulation", "shadow", "ci"],
+  "profiles": [
+    {
+      "id": "fada_local",
+      "machine_role": "development",
+      "hostnames": [],
+      "allowed_contexts": ["editing", "audit", "simulation", "shadow"],
+      "risk_focus": ["objective_consistency", "fallback", "reversibility"],
+      "governance_mode": "strict_preferred"
+    },
+    {
+      "id": "fada_ci",
+      "machine_role": "ci",
+      "hostnames": [],
+      "allowed_contexts": ["ci", "audit"],
+      "risk_focus": ["reproducibility", "regression", "determinism"],
+      "governance_mode": "strict_required"
+    }
+  ]
+}
+

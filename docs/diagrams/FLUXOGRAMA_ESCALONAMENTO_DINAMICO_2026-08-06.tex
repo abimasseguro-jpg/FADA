@@ -1,0 +1,45 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,shapes.geometric,positioning}
+\usepackage[margin=1.5cm]{geometry}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Escalonamento dinâmico MVHSN}\\[4pt]
+Heurística adaptativa por worker, cenário e custo aprendido
+\end{center}
+
+\tikzset{
+  start/.style={rectangle, rounded corners, draw=gray!80, fill=gray!10, minimum width=8cm, minimum height=1cm, align=center},
+  process/.style={rectangle, rounded corners, draw=blue!70, fill=blue!7, minimum width=10cm, minimum height=1.25cm, align=center},
+  data/.style={rectangle, rounded corners, draw=green!60!black, fill=green!7, minimum width=10cm, minimum height=1.25cm, align=center},
+  decision/.style={diamond, aspect=2.1, draw=orange!80!black, fill=orange!10, minimum width=7cm, minimum height=2cm, align=center},
+  arrow/.style={-{Latex[length=3mm]}, thick}
+}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.65cm and 2cm]
+\node (start) [start] {Início / evento de decisão\\worker liberado ou nova informação};
+\node (state) [data, below=of start] {Atualizar estado\\fila $Q$, workers, leases, tarefas ativas e $L_s$};
+\node (learn) [data, below=of state] {Atualizar custos\\$\widehat C(k)$ por cenário, $m_i$ por complexidade e $v_s$ por worker};
+\node (window) [process, below=of learn] {Selecionar janela de candidatos\\priorizar tarefas pesadas e cenários sub-representados};
+\node (simulate) [process, below=of window] {Simular cada atribuição $i\rightarrow s$\\$\widehat p_{i,s}=\widehat C(k_i)m_i/v_s$};
+\node (makespan) [process, below=of simulate] {Calcular término previsto\\$\widehat T_{i\rightarrow s}=\max_r L'_r$};
+\node (decision) [decision, below=of makespan] {Atribuir reduz o término\\além da margem $\varepsilon$?};
+\node (wait) [start, below left=1.1cm and 2.5cm of decision] {Não: aguardar\\próximo evento de conclusão};
+\node (dispatch) [start, below right=1.1cm and 2.5cm of decision] {Sim: despachar $i$ para $s$\\registrar observação};
+
+\draw [arrow] (start) -- (state);
+\draw [arrow] (state) -- (learn);
+\draw [arrow] (learn) -- (window);
+\draw [arrow] (window) -- (simulate);
+\draw [arrow] (simulate) -- (makespan);
+\draw [arrow] (makespan) -- (decision);
+\draw [arrow] (decision) -- node[above left]{Não} (wait);
+\draw [arrow] (decision) -- node[above right]{Sim} (dispatch);
+\end{tikzpicture}
+\end{center}
+\end{document}

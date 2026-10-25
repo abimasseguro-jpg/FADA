@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fada.local/schemas/v1/capacity_recommendation.json",
+  "title": "FADA capacity recommendation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "machine_id",
+    "mode",
+    "action",
+    "current_level_id",
+    "recommended_level_id",
+    "apply_allowed",
+    "reason",
+    "confidence",
+    "observation_id",
+    "idempotency_key",
+    "controller_version"
+  ],
+  "properties": {
+    "schema_version": {"const": "fada-capacity-recommendation/v1"},
+    "machine_id": {"type": "string", "minLength": 1},
+    "mode": {"enum": ["disabled", "shadow", "advisory", "active"]},
+    "action": {
+      "enum": [
+        "keep",
+        "increase_workers",
+        "decrease_workers",
+        "increase_clock",
+        "decrease_clock",
+        "change_workers_and_clock",
+        "emergency_decrease",
+        "fallback"
+      ]
+    },
+    "current_level_id": {"type": "string", "minLength": 1},
+    "recommended_level_id": {"type": "string", "minLength": 1},
+    "apply_allowed": {"type": "boolean"},
+    "reason": {"type": "string", "minLength": 1},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "observation_id": {"type": ["string", "null"]},
+    "idempotency_key": {"type": "string", "minLength": 64, "maxLength": 64},
+    "controller_version": {"const": "fada-rc/0.1"},
+    "predicted_throughput_tasks_per_second": {"type": ["number", "null"], "minimum": 0},
+    "throughput_lower_bound": {"type": ["number", "null"], "minimum": 0},
+    "throughput_upper_bound": {"type": ["number", "null"], "minimum": 0},
+    "temperature_rise_celsius_per_second": {"type": ["number", "null"]}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "adaptive-scheduler-epistemic-guard",
+  "version": "1.0.0",
+  "portable": true,
+  "authority": "validate",
+  "automatic_mutation": false,
+  "purpose": "Validar políticas adaptativas sem confundir previsão, decisão e resultado observado.",
+  "invariants": [
+    "Aplicar a transformação de incerteza simetricamente a todos os contrafactuais comparados.",
+    "Acionar fallback quando a cobertura de estimativas for insuficiente.",
+    "Separar evidência simulada, shadow e produtiva.",
+    "Exigir margem explícita para decisões de espera.",
+    "Preservar rollback e autoridade do executor hospedeiro."
+  ],
+  "validation": [
+    "testes determinísticos de elegibilidade e fallback",
+    "backtest temporal contra baselines fixos",
+    "shadow mode antes de canário reversível"
+  ]
+}

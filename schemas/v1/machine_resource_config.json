@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fada.local/schemas/v1/machine_resource_config.json",
+  "title": "FADA machine resource configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "machine_id", "mode", "authorized_levels"],
+  "properties": {
+    "schema_version": {"const": "fada-resource-config/v1"},
+    "machine_id": {"type": "string", "minLength": 1},
+    "mode": {"enum": ["disabled", "shadow", "advisory", "active"]},
+    "authorized_levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["level_id", "workers", "core_clock_hz"],
+        "properties": {
+          "level_id": {"type": "string", "minLength": 1},
+          "workers": {"type": "integer", "minimum": 1},
+          "core_clock_hz": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "minimum_samples_per_level": {"type": "integer", "minimum": 1},
+    "observation_window_seconds": {"type": "number", "minimum": 0},
+    "telemetry_max_age_seconds": {"type": "number", "minimum": 0},
+    "cooldown_seconds": {"type": "number", "minimum": 0},
+    "minimum_throughput_gain_ratio": {"type": "number", "minimum": 0},
+    "memory_reserve_bytes": {"type": "integer", "minimum": 0},
+    "maximum_swap_used_bytes": {"type": "integer", "minimum": 0},
+    "maximum_error_rate": {"type": "number", "minimum": 0, "maximum": 1},
+    "thermal_warning_celsius": {"type": "number", "minimum": 0},
+    "thermal_critical_celsius": {"type": "number", "minimum": 0},
+    "thermal_hysteresis_celsius": {"type": "number", "minimum": 0},
+    "maximum_temperature_rise_celsius_per_second": {
+      "type": ["number", "null"],
+      "exclusiveMinimum": 0
+    },
+    "throughput_uncertainty_multiplier": {"type": "number", "minimum": 0}
+  }
+}
